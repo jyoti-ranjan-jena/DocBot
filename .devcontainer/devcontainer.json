@@ -1,0 +1,21 @@
+{
+    "name": "DocBot Streamlit App",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "forwardPorts": [
+        8501
+    ],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "njpwerner.autodocstring",
+                "streetsidesoftware.code-spell-checker",
+                "redhat.vscode-yaml",
+                "streamlit.streamlit"
+            ]
+        }
+    }
+}
