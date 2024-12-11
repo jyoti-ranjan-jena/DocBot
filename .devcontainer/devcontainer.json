@@ -5,17 +5,21 @@
   "customizations": {
     "vscode": {
       "settings": {
-        "python.defaultInterpreterPath": "/usr/local/bin/python",
         "python.linting.enabled": true,
         "python.linting.pylintEnabled": true,
         "python.formatting.provider": "black",
         "files.autoSave": "afterDelay",
         "editor.formatOnSave": true,
-        "editor.wordWrap": "on"
+        "editor.wordWrap": "on",
+        "[python]": {
+          "editor.defaultFormatter": "ms-python.black-formatter"
+        }
       },
       "extensions": [
         "ms-python.python",
-        "ms-python.vscode-pylance"
+        "ms-python.vscode-pylance",
+        "ms-python.black-formatter",
+        "ms-python.pylint"
       ]
     }
   },
