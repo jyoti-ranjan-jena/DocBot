@@ -1,14 +1,14 @@
-import os
-from PyPDF2 import PdfReader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
-import streamlit as st
-import google.generativeai as genai
-from langchain.vectorstores import FAISS
+from dotenv import load_dotenv
 from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain.chains.question_answering import load_qa_chain
 from langchain.prompts import PromptTemplate
-from dotenv import load_dotenv
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain.vectorstores import FAISS
+from PyPDF2 import PdfReader
+import google.generativeai as genai
+import os
+import streamlit as st
 
 load_dotenv()
 
@@ -37,18 +37,19 @@ def get_vector_store(chunks):
 
 def get_conversational_chain():
     prompt_template = """
-You are DocBot, an intelligent assistant designed to answer questions based on the provided context. 
-Your responses should be accurate, detailed, and relevant. 
-Follow these guidelines:
+    You are DocBot, an intelligent assistant designed to assist users based on the provided context from a PDF or multiple PDF files. 
+    Your capabilities include answering questions, providing detailed explanations, brainstorming ideas, and offering summaries. 
+    Follow these guidelines:
 
-1. Comprehensiveness: Provide detailed answers, ensuring clarity and completeness.
-2. Contextual Accuracy: Base your responses strictly on the information available in the context. If the answer is not available in the context, clearly state: "The answer is not available in the provided context."
-3. Integrity: Do not provide incorrect information or make assumptions beyond the given context.
+    1. Comprehensiveness: Provide detailed answers, ensuring clarity and completeness.
+    2. Contextual Accuracy: Base your responses strictly on the information available in the context. If the answer is not available in the context, clearly state: "The answer is not available in the provided context."
+    3. Brainstorming: When asked to brainstorm, generate creative and relevant ideas based on the context.
+    4. Integrity: Do not provide incorrect information or make assumptions beyond the given context.
 
-Context:\n {context}?\n
-Question:\n {question}\n
+    Context:\n {context}?\n
+    Question:\n {question}\n
 
-Answer:
+    Answer:
     """
 
     model = ChatGoogleGenerativeAI(
@@ -64,7 +65,7 @@ Answer:
 
 def clear_chat_history():
     st.session_state.messages = [
-        {"role": "assistant", "content": "upload some pdfs and ask me a question"}
+        {"role": "assistant", "content": "Upload your PDF and ask me anything: summarize, explain, brainstorm, or answer specific questions."}
     ]
 
 def user_input(user_question):
@@ -97,20 +98,21 @@ def main():
         st.stop()
 
     with st.sidebar:
-        st.title("Menu:")
         pdf_docs = st.file_uploader(
             "Upload your PDF Files and Click on the Submit & Process Button",
             accept_multiple_files=True,
+            type="PDF",
+            label_visibility="visible"
         )
         if st.button("Submit & Process"):
-            with st.spinner("Processing..."):
+            with st.spinner("Processing your PDF... 📄"):
                 raw_text = get_pdf_text(pdf_docs)
                 text_chunks = get_text_chunks(raw_text)
                 get_vector_store(text_chunks)
-                st.success("Done")
+                st.success("PDF processing complete! Now you can ask me questions.")
 
     st.title("DocBot 🤖 - Chat with PDF files")
-    st.write("Welcome to DocBot! Upload your PDFs and start chatting with the content.")
+    st.write("Welcome to DocBot! Upload your PDF files and ask me anything: summarize, explain, brainstorm, or answer specific questions.")
     st.sidebar.button("Clear Chat History", on_click=clear_chat_history)
 
     if "messages" not in st.session_state.keys():
