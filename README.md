@@ -1,4 +1,4 @@
-# Sample Streamlit
+# Sample Python/Streamlit
 
 DocBot is a Streamlit web application that enables interactive conversations with PDF documents using Gemini AI, providing insightful responses based on the document's content.
 
