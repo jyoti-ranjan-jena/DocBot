@@ -26,6 +26,10 @@ DocBot is a Streamlit web application that enables interactive conversations wit
    streamlit run app.py
    ```
 
+5. **Upload** your PDF document(s) via the sidebar and click **Submit & Process**.
+
+6. **Start chatting** with Gemini AI to gain insights from your document.
+
 ---
 
 ## ✨ Features  
@@ -35,3 +39,14 @@ DocBot is a Streamlit web application that enables interactive conversations wit
 - Insightful Responses: Receive detailed and contextually accurate answers based on the document's content.
 - User-Friendly Interface: Enjoy a seamless experience with a clean and intuitive Streamlit interface.
 - Secure API Integration: Utilize your Google API key securely for AI interactions.
+
+<details>  
+<summary>Show/Hide Screenshots</summary>  
+
+- **PDF Upload Screen**  
+  ![PDF Upload Screenshot](images/pdf_upload.png)
+
+- **Chat Interface**  
+  ![Chat Interface ScreenShot](images/chat_interface.png)  
+
+</details>
